@@ -1,0 +1,15 @@
+.vscode/
+.vs/
+Assembly-Csharp.csproj
+*.sln
+*.csproj
+Library/
+Logs/
+Temp/
+UserSettings/
+[Oo]bj/
+Unity.Analytics.DataPrivacy.csproj
+Unity.CollabProxy.Editor.csproj
+Unity.PackageManagerUI.Editor.csproj
+Unity.TextMeshPro.Editor.csproj
+Unity.TextMeshPro.csproj
