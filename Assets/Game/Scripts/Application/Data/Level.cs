@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 关卡数据类
+/// </summary>
 public class Level
 {
     // 关卡名
