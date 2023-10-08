@@ -8,7 +8,7 @@ using UnityEngine;
 public static class Consts
 {
     // 关卡配置文件路径
-    public static readonly string LevelDir = "";
+    public static readonly string LevelDir = Application.dataPath + @"/Game/Config/Levels";
     // 地图资源路径
-    public static readonly string MapDir = "";
+    public static readonly string MapDir = Application.dataPath + @"/Game/ArtRes/Maps";
 }
