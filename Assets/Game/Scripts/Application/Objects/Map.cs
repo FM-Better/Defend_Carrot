@@ -81,7 +81,7 @@ public class Map : MonoBehaviour
 
         // 格子大小
         tileWidth = mapWidth / ColumnCount;
-        tileHeight = mapWidth / RowCount;
+        tileHeight = mapHeight / RowCount;
     }
 
     // 得到格子中心点的世界坐标
@@ -127,6 +127,66 @@ public class Map : MonoBehaviour
     #endregion
 
     #region Unity回调函数
+    private void OnDrawGizmos()
+    {
+        if (!drawGizmos)
+            return;
+
+        // 计算地图和格子的大小
+        CalculateSize();
+
+        // 绘制格子
+        Gizmos.color = Color.green;
+        // 绘制行线
+        for (int row = 0; row <= RowCount; ++row)
+        {
+            Vector2 from = new Vector2(-mapWidth / 2, -mapHeight / 2 + row * tileHeight);
+            Vector2 to = new Vector2(mapWidth / 2, -mapHeight / 2 + row * tileHeight);
+            Gizmos.DrawLine(from, to);
+        }
+        // 绘制列线
+        for (int col = 0; col <= ColumnCount; ++col)
+        {
+            Vector2 from = new Vector2(-mapWidth / 2 + col * tileWidth, -mapHeight / 2);
+            Vector2 to = new Vector2(-mapWidth / 2 + col * tileHeight, mapHeight / 2);
+            Gizmos.DrawLine(from, to);
+        }
+
+        // 绘制可放置点
+        foreach (var item in m_grid)
+        {
+            if (item.canHold)
+            {
+                Vector3 center = GetPosition(item);
+                Gizmos.DrawIcon(center, Consts.HolderGizemos, true);
+            }
+        }
+
+        // 绘制可行走路线
+        for (int i = 0; i < m_road.Count; i++)
+        {
+            // 起点
+            if (i == 0)
+            {
+                Vector3 center = GetPosition(m_road[i]);
+                Gizmos.DrawIcon(center, Consts.StartGizemos, true);
+            }
+            // 终点
+            if (i > 0 && i == m_road.Count - 1)
+            {
+                Vector3 center = GetPosition(m_road[i]);
+                Gizmos.DrawIcon(center, Consts.EndGizemos, true);
+            }
+            // 路径
+            if (i > 0)
+            {
+                Vector3 from = GetPosition(m_road[i]);
+                Vector3 to = GetPosition(m_road[i - 1]);
+                Gizmos.DrawLine(from, to);
+            }
+        }
+    }
+
 
     #endregion
 }
