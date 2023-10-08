@@ -13,21 +13,27 @@ public static class Tools
     // 读取关卡的配置文件
     public static List<FileInfo> GetLevelFiles()
     {
-        List<FileInfo> files = new List<FileInfo>();
+        string[] levels = Directory.GetFiles(Consts.LevelDir, "*.json");
 
+        List<FileInfo> files = new List<FileInfo>();
+        foreach (var item in levels)
+        {
+            FileInfo fileInfo = new FileInfo(item);
+            files.Add(fileInfo);
+        }
         return files;
     }
 
     // 填充关卡
-    public static void FillLevel()
+    public static void FillLevel(string fileName, ref Level level)
     {
-
+        level = JsonMgr.Instance.LoadData<Level>(fileName, Consts.LevelDir);
     }
 
     // 保存关卡信息
-    public static void SaveLevel()
+    public static void SaveLevel(string fileName, Level level)
     {
-
+        JsonMgr.Instance.SaveData(level, fileName, Consts.LevelDir);
     }
 
     // 加载图片
