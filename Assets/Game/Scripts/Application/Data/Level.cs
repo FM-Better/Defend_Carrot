@@ -10,7 +10,7 @@ public class Level
     // 关卡名
     public string name;
     // 背景图的资源名字
-    public string bakcground;
+    public string background;
     // 行走路径的资源名字
     public string road;
     // 初始金币

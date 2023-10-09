@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.WSA;
 
 public class Map : MonoBehaviour
 {
@@ -67,66 +68,96 @@ public class Map : MonoBehaviour
     #endregion
 
     #region 方法
-    // 计算尺寸大小
-    private void CalculateSize()
+    /// <summary>
+    /// 加载关卡
+    /// </summary>
+    /// <param name="level"> 传入的关卡数据 </param>
+    public void LoadLevel(Level level)
     {
-        // 左下角的点的世界坐标
-        Vector3 leftDown = Camera.main.ViewportToWorldPoint(new Vector3(0, 0));
-        // 右上角的点的世界坐标
-        Vector3 rightUp = Camera.main.ViewportToWorldPoint(new Vector3(1, 1));
+        // 清空当前信息
+        Clear();
 
-        // 地图大小
-        mapWidth = rightUp.x - leftDown.x;
-        mapHeight = rightUp.y - leftDown.y;
+        // 关联关卡信息
+        m_level = level;
+        // 加载图片
+        BackgroundImage = "file://" + Consts.MapDir + "/" + level.background;
+        RoadImage = "file://" + Consts.MapDir + "/" + level.road;
 
-        // 格子大小
-        tileWidth = mapWidth / ColumnCount;
-        tileHeight = mapHeight / RowCount;
-    }
-
-    // 得到格子中心点的世界坐标
-    private Vector3 GetPosition(Tile tile)
-    {
-        return new Vector3(
-                    -mapWidth * 2 + (tile.x + 0.5f) * tileWidth,
-                    -mapHeight * 2 + (tile.y + 0.5f) * tileHeight,
-                    0f
-                );
-    }
-
-    // 根据x、y轴的索引获取格子
-    private Tile GetTile(int tileX, int tileY)
-    {
-        int index = tileX + tileY * ColumnCount;
-
-        if (index < 0 || index >= m_grid.Count)
+        // 设置可行走路径
+        foreach (var point in level.path)
         {
-            Debug.Log("索引越界！");
-            return null;
+            m_road.Add(GetTile(point.x, point.y));
         }
 
-        return m_grid[index];
+        // 设置放置点
+        foreach (var point in level.holders)
+        {
+            Tile tile = GetTile(point.x, point.y);
+            tile.canHold = true;
+        }
     }
 
-    // 得到鼠标所在的格子
-    private Tile GetTileUnderMouse()
+    // 清空放置点
+    public void ClearHolders()
     {
-        Vector3 mouseWorldPos = GetMouseWolrdPosition();
-        int col = (int)((mouseWorldPos.x + mapWidth / 2) / tileWidth);
-        int row = (int)((mouseWorldPos.y + mapHeight / 2) / tileHeight);
-        return GetTile(col, row);
+        foreach (var item in m_grid)
+        {
+            item.canHold = false;
+        }
     }
 
-    // 得到鼠标的世界坐标
-    private Vector3 GetMouseWolrdPosition()
+    // 清空路径
+    public void ClearRoad() => m_road.Clear();
+
+    // 清空信息
+    public void Clear()
     {
-        Vector3 viewPos = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-        Vector3 worldPos = Camera.main.ViewportToWorldPoint(viewPos);
-        return worldPos;
+        // 关卡置空
+        m_level = null;
+        ClearHolders();
+        ClearRoad();
     }
     #endregion
 
     #region Unity回调函数
+    private void Awake()
+    {
+        // 计算地图和格子的大小
+        CalculateSize();
+
+        // 将所有格子添加进来
+        for (int row = 0; row < RowCount; row++)
+        {
+            for (int col = 0; col < ColumnCount; col++)
+            {
+                m_grid.Add(new Tile(row, col));
+            }
+        }        
+    }
+
+    private void Update()
+    {
+        // 鼠标左键点击
+        if (Input.GetMouseButtonDown(0))
+        {
+            Tile tile = GetTileUnderMouse();
+            print(tile.x + ", " + tile.y + "--> Has");
+            Vector3 center = GetPosition(tile);
+            print(center.x + ", " + center.y);
+
+            if (!tile.canHold)
+            {
+                tile.canHold = true;
+            }
+        }
+
+        // 鼠标右键点击
+        if (Input.GetMouseButtonDown(1))
+        {
+
+        }
+    }
+
     private void OnDrawGizmos()
     {
         if (!drawGizmos)
@@ -153,11 +184,12 @@ public class Map : MonoBehaviour
         }
 
         // 绘制可放置点
-        foreach (var item in m_grid)
+        foreach (var tile in m_grid)
         {
-            if (item.canHold)
+            if (tile.canHold)
             {
-                Vector3 center = GetPosition(item);
+                Vector3 center = GetPosition(tile);
+                print(tile.x + ", " + tile.y + "--> Has");
                 Gizmos.DrawIcon(center, Consts.HolderGizemos, true);
             }
         }
@@ -188,5 +220,65 @@ public class Map : MonoBehaviour
     }
 
 
+    #endregion
+
+    #region 辅助方法
+    // 计算尺寸大小
+    private void CalculateSize()
+    {
+        // 左下角的点的世界坐标
+        Vector3 leftDown = Camera.main.ViewportToWorldPoint(new Vector3(0, 0));
+        // 右上角的点的世界坐标
+        Vector3 rightUp = Camera.main.ViewportToWorldPoint(new Vector3(1, 1));
+
+        // 地图大小
+        mapWidth = rightUp.x - leftDown.x;
+        mapHeight = rightUp.y - leftDown.y;
+
+        // 格子大小
+        tileWidth = mapWidth / ColumnCount;
+        tileHeight = mapHeight / RowCount;
+    }
+
+    // 得到格子中心点的世界坐标
+    private Vector3 GetPosition(Tile tile)
+    {
+        return new Vector3(
+                    -mapWidth / 2 + (tile.y + 0.5f) * tileWidth,
+                    -mapHeight / 2 + (tile.x + 0.5f) * tileHeight,
+                    0f
+                );
+    }
+
+    // 根据x、y轴的索引获取格子
+    private Tile GetTile(int tileX, int tileY)
+    {
+        int index = tileX * ColumnCount + tileY;
+
+        if (index < 0 || index >= m_grid.Count)
+        {
+            Debug.Log("索引越界！");
+            return null;
+        }
+
+        return m_grid[index];
+    }
+
+    // 得到鼠标所在的格子
+    private Tile GetTileUnderMouse()
+    {
+        Vector3 mouseWorldPos = GetMouseWolrdPosition();
+        int col = (int)((mouseWorldPos.x + mapWidth / 2) / tileWidth);
+        int row = (int)((mouseWorldPos.y + mapHeight / 2) / tileHeight);
+        return GetTile(row, col);
+    }
+
+    // 得到鼠标的世界坐标
+    private Vector3 GetMouseWolrdPosition()
+    {
+        Vector3 viewPos = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        Vector3 worldPos = Camera.main.ViewportToWorldPoint(viewPos);
+        return worldPos;
+    }
     #endregion
 }

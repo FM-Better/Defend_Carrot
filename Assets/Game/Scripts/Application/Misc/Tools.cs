@@ -27,13 +27,13 @@ public static class Tools
     // 填充关卡
     public static void FillLevel(string fileName, ref Level level)
     {
-        level = JsonMgr.Instance.LoadData<Level>(fileName, Consts.LevelDir);
+        level = JsonMgr.Instance.LoadData<Level>(fileName);
     }
 
     // 保存关卡信息
     public static void SaveLevel(string fileName, Level level)
     {
-        JsonMgr.Instance.SaveData(level, fileName, Consts.LevelDir);
+        JsonMgr.Instance.SaveData(level, fileName);
     }
 
     // 加载图片
