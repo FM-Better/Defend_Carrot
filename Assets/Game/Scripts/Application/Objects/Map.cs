@@ -79,7 +79,7 @@ public class Map : MonoBehaviour
 
         // 关联关卡信息
         m_level = level;
-        // 加载图片
+        // 加载图片(本地)
         BackgroundImage = "file://" + Consts.MapDir + "/" + level.background;
         RoadImage = "file://" + Consts.MapDir + "/" + level.road;
 
@@ -141,20 +141,42 @@ public class Map : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Tile tile = GetTileUnderMouse();
-            print(tile.x + ", " + tile.y + "--> Has");
             Vector3 center = GetPosition(tile);
-            print(center.x + ", " + center.y);
 
+            // 没有则设置为放置点
             if (!tile.canHold)
             {
-                tile.canHold = true;
+                if (!m_road.Contains(tile))
+                {
+                    tile.canHold = true;
+                }
+            }
+            // 否则 取消该放置点
+            else
+            {
+                tile.canHold = false;
             }
         }
 
         // 鼠标右键点击
         if (Input.GetMouseButtonDown(1))
         {
+            Tile tile = GetTileUnderMouse();
+            Vector3 center = GetPosition(tile);
 
+            // 没有就设置为路径点
+            if (!m_road.Contains(tile))
+            {
+                if (!tile.canHold)
+                {
+                    m_road.Add(tile);
+                }
+            }
+            // 否则 取消该路径点
+            else
+            {
+                m_road.Remove(tile);
+            }
         }
     }
 
@@ -189,12 +211,12 @@ public class Map : MonoBehaviour
             if (tile.canHold)
             {
                 Vector3 center = GetPosition(tile);
-                print(tile.x + ", " + tile.y + "--> Has");
                 Gizmos.DrawIcon(center, Consts.HolderGizemos, true);
             }
         }
 
         // 绘制可行走路线
+        Gizmos.color = Color.red;
         for (int i = 0; i < m_road.Count; i++)
         {
             // 起点
@@ -257,7 +279,7 @@ public class Map : MonoBehaviour
 
         if (index < 0 || index >= m_grid.Count)
         {
-            Debug.Log("索引越界！");
+            Debug.LogError("索引越界！");
             return null;
         }
 
