@@ -4,29 +4,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartViewMediator : Mediator
+public class SelectViewMediator : Mediator
 {
-    public static new string NAME = "StartViewMediator";
+    public static new string NAME = "SelectViewMediator";
 
-    public StartViewMediator() : base(NAME) {}
+    public SelectViewMediator() : base(NAME) {}
 
     /// <summary>
     ///  将View关联上
     /// </summary>
-    public void SetView(StartView view)
+    public void SetView(SelectView view)
     {
         ViewComponent = view;
+
         // 监听按钮逻辑
-        // 进入选关场景
-        view.btnAdventure.onClick.AddListener(() =>
+        // 进入开始场景
+        view.btnBack.onClick.AddListener(() =>
         {
             // 取消自己的视图
             SendNotification(MVCNotification.CANCEL_VIEW, this);
 
-            SendNotification(MVCNotification.LOAD_SCENE, new LoadSceneArgs(Consts.SelectIndex, () =>
+            SendNotification(MVCNotification.LOAD_SCENE, new LoadSceneArgs(Consts.StartIndex, () =>
             {
-                // 设置选关视图
-                SendNotification(MVCNotification.SET_VIEW, Consts.V_Select);
+                // 设置开始视图
+                SendNotification(MVCNotification.SET_VIEW, Consts.V_Start);
             }));
         });
     }
@@ -45,7 +46,8 @@ public class StartViewMediator : Mediator
         switch (notification.Name) 
         {
             default:
-                break;
+
+            break;
         }
     }
 }

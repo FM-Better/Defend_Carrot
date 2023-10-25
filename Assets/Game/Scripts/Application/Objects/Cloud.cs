@@ -1,4 +1,4 @@
-using DG.Tweening;
+ï»¿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +12,7 @@ public class Cloud : MonoBehaviour
     void Start()
     {
         _endPosition = transform.position + transform.right * Screen.width * 1.2f;
-        // Ñ­»·µÄ´ÓÍ·ÒÆ¶¯ ÏßÐÔ»º¶¯
+        // å¾ªçŽ¯çš„ä»Žå¤´ç§»åŠ¨ çº¿æ€§ç¼“åŠ¨
         transform.DOMove(_endPosition, duration)
             .SetLoops(-1, LoopType.Restart)
             .SetEase(Ease.Linear);

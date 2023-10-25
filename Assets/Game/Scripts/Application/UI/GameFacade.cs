@@ -1,11 +1,11 @@
-using PureMVC.Patterns.Facade;
+ï»¿using PureMVC.Patterns.Facade;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameFacade : Facade
 {
-    // ÎªÁË·½±ãÊ¹ÓÃFacadeµ¥Àı ×Ô¼ºĞ´Ò»¸öÊôĞÔ
+    // ä¸ºäº†æ–¹ä¾¿ä½¿ç”¨Facadeå•ä¾‹ è‡ªå·±å†™ä¸€ä¸ªå±æ€§
     public static GameFacade Instance
     {
         get
@@ -19,16 +19,35 @@ public class GameFacade : Facade
     }
 
     /// <summary>
-    /// ³õÊ¼»¯¿ØÖÆ²ã
+    /// åˆå§‹åŒ–æ§åˆ¶å±‚
     /// </summary>
     protected override void InitializeController()
     {
         base.InitializeController();
-        // ½«ÃüÁîºÍÍ¨Öª°ó¶¨
+        // å°†å‘½ä»¤å’Œé€šçŸ¥ç»‘å®š
+        RegisterCommand(MVCNotification.START_UP, () =>
+        {
+            return new StartUpCommand();
+        });
+
+        RegisterCommand(MVCNotification.LOAD_SCENE, () =>
+        {
+            return new LoadSceneCommand();
+        });
+
+        RegisterCommand(MVCNotification.SET_VIEW, () =>
+        {
+            return new SetViewCommand();
+        });
+
+        RegisterCommand(MVCNotification.CANCEL_VIEW, () =>
+        {
+            return new CancelViewCommand();
+        });
     }
 
     /// <summary>
-    /// Æô¶¯
+    /// å¯åŠ¨
     /// </summary>
     public void StartUp()
     {

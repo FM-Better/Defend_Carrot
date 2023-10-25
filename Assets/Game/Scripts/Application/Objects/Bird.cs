@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -13,7 +13,7 @@ public class Bird : MonoBehaviour
     void Start()
     {
         _endPosition = transform.position + transform.up * offsetY;
-        // Ñ­»·µÄÀ´»ØÒÆ¶¯ ÏßĞÔ»º¶¯
+        // å¾ªç¯çš„æ¥å›ç§»åŠ¨ çº¿æ€§ç¼“åŠ¨
         transform.DOMove(_endPosition, duration)
             .SetLoops(-1, LoopType.Yoyo)
             .SetEase(Ease.Linear);
