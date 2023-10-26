@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-// 场景管理器 在基础的场景管理器上封装了一些功能
+// 场景管理器 在Unity的SceneManager上封装了一些功能
 public static class SceneMgr
 {
     // 异步卸载场景
@@ -44,9 +44,7 @@ public static class SceneMgr
     /// 异步加载场景
     /// </summary>
     /// <param name="sceneName"> 场景名称 </param>
-    /// <param name="isDisplay"> 是否立即显示 </param>
     /// <param name="callBack"> 场景加载完毕要执行的回调函数 </param>
-
     public static void LoadSceneAsync(string sceneName, UnityAction callBack = null)
     {
         MonoMgr.Instance.StartCoroutine(LoadSceneCoroutine(sceneName, LoadSceneMode.Single, true, callBack));
