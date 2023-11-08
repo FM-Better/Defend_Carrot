@@ -30,6 +30,22 @@ public class SelectViewMediator : Mediator
                 SendNotification(MVCNotification.SET_VIEW, Consts.V_Start);
             }));
         });
+
+        // 进入关卡场景
+        view.btnPlay.onClick.AddListener(() =>
+        {
+            // 取消自己的视图
+            SendNotification(MVCNotification.CANCEL_VIEW, this);
+
+            SendNotification(MVCNotification.LOAD_SCENE, new LoadSceneArgs(Consts.LevelIndex, () =>
+            {
+                // 创建关卡数据
+                
+
+                // 设置公告板视图
+                SendNotification(MVCNotification.SET_VIEW, Consts.V_Board);
+            }));
+        });
     }
 
     // 重写监听通知的方法
@@ -46,8 +62,7 @@ public class SelectViewMediator : Mediator
         switch (notification.Name) 
         {
             default:
-
-            break;
+                break;
         }
     }
 }

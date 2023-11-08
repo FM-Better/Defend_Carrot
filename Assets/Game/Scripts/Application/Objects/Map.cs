@@ -211,7 +211,7 @@ public class Map : MonoBehaviour
             if (tile.canHold)
             {
                 Vector3 center = GetPosition(tile);
-                Gizmos.DrawIcon(center, Consts.HolderGizemos, true);
+                Gizmos.DrawIcon(center, Consts.HolderGizmos, true);
             }
         }
 
@@ -223,13 +223,13 @@ public class Map : MonoBehaviour
             if (i == 0)
             {
                 Vector3 center = GetPosition(m_road[i]);
-                Gizmos.DrawIcon(center, Consts.StartGizemos, true);
+                Gizmos.DrawIcon(center, Consts.StartGizmos, true);
             }
             // 终点
             if (i > 0 && i == m_road.Count - 1)
             {
                 Vector3 center = GetPosition(m_road[i]);
-                Gizmos.DrawIcon(center, Consts.EndGizemos, true);
+                Gizmos.DrawIcon(center, Consts.EndGizmos, true);
             }
             // 路径
             if (i > 0)

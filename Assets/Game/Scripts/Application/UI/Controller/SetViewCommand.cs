@@ -32,6 +32,16 @@ public class SetViewCommand : SimpleCommand
                 SelectViewMediator selectViewMediator = Facade.RetrieveMediator(SelectViewMediator.NAME) as SelectViewMediator;
                 selectViewMediator.SetView(GameObject.Find(Consts.V_Select).GetComponent<SelectView>());
                 break;
+            case Consts.V_Board:
+                //  没有该面板的Mediator 则注册
+                if (!Facade.HasMediator(BoardViewMediator.NAME))
+                {
+                    Facade.RegisterMediator(new BoardViewMediator());
+                }
+                // 得到该面板的Mediator
+                BoardViewMediator boardViewMediator = Facade.RetrieveMediator(BoardViewMediator.NAME) as BoardViewMediator;
+                boardViewMediator.SetView(GameObject.Find(Consts.UI_Level).transform.Find(Consts.V_Board).GetComponent<BoardView>());
+                break;
             default:
                 break;
         }

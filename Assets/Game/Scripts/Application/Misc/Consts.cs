@@ -16,11 +16,11 @@ public static class Consts
 
     #region Gizmos资源名相关
     // 可放置点的Gizmos资源名
-    public const string HolderGizemos = "holder.png";
+    public const string HolderGizmos = "holder.png";
     // 路径起点的Gizmos资源名
-    public const string StartGizemos = "start.png";
+    public const string StartGizmos = "start.png";
     // 路径终点的Gizmos资源名
-    public const string EndGizemos = "end.png";
+    public const string EndGizmos = "end.png";
     #endregion
 
     #region 场景索引相关
@@ -28,13 +28,22 @@ public static class Consts
     public const int StartIndex = 1;
     // 选关场景索引
     public const int SelectIndex = 2;
+    // 关卡场景索引
+    public const int LevelIndex = 3;
     #endregion
-
 
     #region 视图名相关
     // 开始场景的视图名
     public const string V_Start = "StartView";
     // 选关场景的视图名
     public const string V_Select = "SelectView";
+    // 关卡场景的公告板的视图名
+    public const string V_Board = "BoardView";
+    // 关卡场景的倒计时的视图名
+    public const string V_CountDown = "CountDownView";
+    #endregion
+
+    #region 其余名字
+    public const string UI_Level = "LevelCanvas";
     #endregion
 }
