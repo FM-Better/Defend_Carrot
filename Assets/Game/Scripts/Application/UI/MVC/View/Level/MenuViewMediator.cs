@@ -18,7 +18,28 @@ public class MenuViewMediator : Mediator
         ViewComponent = view;
 
         // 监听按钮逻辑
+        view.btnChoose.onClick.AddListener(() =>
+        {
+            SendNotification(MVCNotification.LOAD_SCENE, new LoadSceneArgs(Consts.SelectIndex, () =>
+            {
+                // 进入选关场景
+                SendNotification(MVCNotification.ENTER_SCENE, Consts.SelectScene);
+            }));
+        });
 
+        view.btnContinue.onClick.AddListener(() =>
+        {
+            view.gameObject.SetActive(false);
+        });
+
+        view.btnRestart.onClick.AddListener(() =>
+        {
+            SendNotification(MVCNotification.LOAD_SCENE, new LoadSceneArgs(Consts.LevelIndex, () =>
+            {
+                // 进入关卡场景
+                SendNotification(MVCNotification.ENTER_SCENE, Consts.LevelScene);
+            }));
+        });
     }
 
     // 重写监听通知的方法

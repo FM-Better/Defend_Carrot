@@ -1,4 +1,4 @@
-using PureMVC.Interfaces;
+ï»¿using PureMVC.Interfaces;
 using PureMVC.Patterns.Command;
 using PureMVC.Patterns.Mediator;
 using System.Collections;
@@ -12,8 +12,10 @@ public class CancelViewCommand : SimpleCommand
         Mediator mediator = notification.Body as Mediator;
         if (mediator != null && mediator.ViewComponent != null)
         {
-            // ½«¶ÔÓ¦µÄÊÓÍ¼È¡Ïû
+            // å°†å¯¹åº”çš„è§†å›¾å–æ¶ˆ
             mediator.ViewComponent = null;
+            // å°†å…¶ä»MVCä¸­ç§»é™¤
+            Facade.RemoveMediator(mediator.MediatorName);
         }
     }
 }

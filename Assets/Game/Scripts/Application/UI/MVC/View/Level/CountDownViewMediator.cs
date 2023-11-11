@@ -17,23 +17,28 @@ public class CountDownViewMediator : Mediator
     {
         ViewComponent = view;
 
-        // 监听按钮逻辑
-        
+        // 开始倒计时
+        view.CountDown();
     }
 
     // 重写监听通知的方法
     public override string[] ListNotificationInterests()
     {
         return new string[] {
-
+            MVCNotification.COUNTDOWN_OVER,
         };
     }
 
     // 重新处理通知的方法
     public override void HandleNotification(INotification notification)
     {
-        switch (notification) 
+        switch (notification.Name) 
         {
+            case MVCNotification.COUNTDOWN_OVER:
+                // 倒计时完成将自己关闭且移除
+                (ViewComponent as CountDownView).gameObject.SetActive(false);
+                SendNotification(MVCNotification.CANCEL_VIEW, this);
+                break;
             default: 
                 break;
         }

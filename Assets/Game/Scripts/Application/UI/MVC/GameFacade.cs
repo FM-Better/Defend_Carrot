@@ -35,6 +35,11 @@ public class GameFacade : Facade
             return new LoadSceneCommand();
         });
 
+        RegisterCommand(MVCNotification.ENTER_SCENE, () =>
+        {
+            return new EnterSceneCommand();
+        });
+
         RegisterCommand(MVCNotification.SET_VIEW, () =>
         {
             return new SetViewCommand();

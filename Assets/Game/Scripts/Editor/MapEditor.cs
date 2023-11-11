@@ -106,6 +106,12 @@ public class MapEditor : Editor
     {
         // 得到当前编辑的Level
         Level level = map.level;
+        level.levelID = m_currentIndex + 1;
+
+        level.name = "Level" + level.levelID;
+        level.cardName = "Card" + level.levelID + ".png";
+        level.background = "bg" + level.levelID + ".png";
+        level.road = "road" + level.levelID + ".png";
 
         List<Point> holders = new List<Point>();
         // 保存放置点信息

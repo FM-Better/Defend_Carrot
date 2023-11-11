@@ -4,6 +4,7 @@ using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 /// <summary>
 /// 工具类
@@ -52,6 +53,29 @@ public static class Tools
                                 Vector2.one * 0.5f
                             );
                 renderer.sprite = sp;
+            }
+            else
+            {
+                Debug.Log("下载失败: " + webRequest.error);
+            }
+        }
+    }
+
+    public static IEnumerator LoadImage(string url, Image image)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequestTexture.GetTexture(url))
+        {
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.result == UnityWebRequest.Result.Success)
+            {
+                Texture2D texture = DownloadHandlerTexture.GetContent(webRequest);
+                Sprite sp = Sprite.Create(
+                                texture,
+                                new Rect(0, 0, texture.width, texture.height),
+                                Vector2.one * 0.5f
+                            );
+                image.sprite = sp;
             }
             else
             {

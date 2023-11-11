@@ -7,8 +7,14 @@ using UnityEngine;
 /// </summary>
 public class Level
 {
+    // 关卡ID
+    public int levelID;
+    // 是否被锁定
+    public bool isLocked;
     // 关卡名
     public string name;
+    // 卡牌名
+    public string cardName;
     // 背景图的资源名字
     public string background;
     // 行走路径的资源名字

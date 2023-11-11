@@ -20,34 +20,40 @@ public class BoardViewMediator : Mediator
         // 监听按钮逻辑
         view.btnPause.onClick.AddListener(() =>
         {
-            (Facade.RetrieveProxy(LevelDataProxy.NAME) as LevelDataProxy).Pause();
             view.btnPause.gameObject.SetActive(false);
             view.btnResume.gameObject.SetActive(true);
             view.imgRoundInfo.gameObject.SetActive(false);
             view.imgPauseInfo.gameObject.SetActive(true);
+            (Facade.RetrieveProxy(LevelDataProxy.NAME) as LevelDataProxy).Pause();
         });
 
         view.btnResume.onClick.AddListener(() =>
         {
-            (Facade.RetrieveProxy(LevelDataProxy.NAME) as LevelDataProxy).Resume();
-            view.btnResume.gameObject.SetActive(false);
             view.btnPause.gameObject.SetActive(true);
-            view.imgPauseInfo.gameObject.SetActive(false);
+            view.btnResume.gameObject.SetActive(false);
             view.imgRoundInfo.gameObject.SetActive(true);
+            view.imgPauseInfo.gameObject.SetActive(false);
+            (Facade.RetrieveProxy(LevelDataProxy.NAME) as LevelDataProxy).Resume();
         });
 
         view.btnSpeed1.onClick.AddListener(() =>
         {
-            (Facade.RetrieveProxy(LevelDataProxy.NAME) as LevelDataProxy).SpeedUp();
             view.btnSpeed1.gameObject.SetActive(false);
             view.btnSpeed2.gameObject.SetActive(true);
+            (Facade.RetrieveProxy(LevelDataProxy.NAME) as LevelDataProxy).SpeedUp();
         });
 
         view.btnSpeed2.onClick.AddListener(() =>
         {
-            (Facade.RetrieveProxy(LevelDataProxy.NAME) as LevelDataProxy).SlowDown();
-            view.btnSpeed2.gameObject.SetActive(false);
             view.btnSpeed1.gameObject.SetActive(true);
+            view.btnSpeed2.gameObject.SetActive(false);
+            (Facade.RetrieveProxy(LevelDataProxy.NAME) as LevelDataProxy).SlowDown();
+        });
+
+        view.btnMenu.onClick.AddListener(() =>
+        {
+            // 打开菜单
+            ((Facade.RetrieveMediator(MenuViewMediator.NAME) as MenuViewMediator).ViewComponent as MenuView).gameObject.SetActive(true);
         });
     }
 

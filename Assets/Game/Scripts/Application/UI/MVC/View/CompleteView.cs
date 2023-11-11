@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CountDownView : MonoBehaviour
+public class CompleteView : MonoBehaviour
 {
-    public Image count;
-    public Sprite[] numbers;
+    public Button btnRestart;
+    public Button btnClear;
 }

@@ -15,4 +15,11 @@ public class MVCNotification
     public const string SET_VIEW = "SET_VIEW";
     // 取消视图
     public const string CANCEL_VIEW = "CANCEL_VIEW";
+
+    // 进入场景
+    public const string ENTER_SCENE = "ENTER_SCENE";
+    // 倒计时结束
+    public const string COUNTDOWN_OVER = "COUNTDOWN_OVER";
+    // 退出场景
+    public const string EXIT_SCENE = "EXIT_SCENE";
 }

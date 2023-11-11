@@ -1,4 +1,4 @@
-using PureMVC.Interfaces;
+ï»¿using PureMVC.Interfaces;
 using PureMVC.Patterns.Command;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,11 +8,11 @@ public class StartUpCommand : SimpleCommand
 {
     public override void Execute(INotification notification)
     {
-        // ½øÈë¿ªÊ¼³¡¾°
+        // åŠ è½½å¼€å§‹åœºæ™¯
         SendNotification(MVCNotification.LOAD_SCENE, new LoadSceneArgs(Consts.StartIndex, () =>
         {
-            // ´ò¿ª¿ªÊ¼Ãæ°å
-            SendNotification(MVCNotification.SET_VIEW, "StartView");
+            // è¿›å…¥å¼€å§‹åœºæ™¯
+            SendNotification(MVCNotification.ENTER_SCENE, Consts.StartScene);
         }));
     }
 }

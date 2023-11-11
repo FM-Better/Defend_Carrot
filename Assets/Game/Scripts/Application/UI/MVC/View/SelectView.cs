@@ -8,4 +8,5 @@ public class SelectView : MonoBehaviour
     public Button btnBack;
     public Button btnHelp;
     public Button btnPlay;
+    public UICard[] uiCards;
 }
