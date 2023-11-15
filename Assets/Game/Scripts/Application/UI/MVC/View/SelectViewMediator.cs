@@ -47,6 +47,12 @@ public class SelectViewMediator : Mediator
             // 加载关卡场景
             SendNotification(MVCNotification.LOAD_SCENE, new LoadSceneArgs(Consts.LevelIndex, () =>
             {
+                // 创建并注册关卡数据
+                if (!Facade.HasProxy(LevelDataProxy.NAME))
+                {
+                    LevelDataProxy levelDataProxy = new LevelDataProxy();
+                    Facade.RegisterProxy(levelDataProxy);
+                }
                 // 初始化关卡信息
                 (Facade.RetrieveProxy(LevelDataProxy.NAME) as LevelDataProxy).InitializeLevelInfo(m_selectIndex);
                 // 进入关卡场景
