@@ -47,6 +47,8 @@ public class SelectViewMediator : Mediator
             // 加载关卡场景
             SendNotification(MVCNotification.LOAD_SCENE, new LoadSceneArgs(Consts.LevelIndex, () =>
             {
+                // 初始化关卡信息
+                (Facade.RetrieveProxy(LevelDataProxy.NAME) as LevelDataProxy).InitializeLevelInfo(m_selectIndex);
                 // 进入关卡场景
                 SendNotification(MVCNotification.ENTER_SCENE, Consts.LevelScene);
             }));
@@ -64,15 +66,14 @@ public class SelectViewMediator : Mediator
     // 加载所有卡牌信息
     public void LoadAllCardInfo()
     {
-        List<FileInfo> levels = Tools.GetLevelFiles();
-        foreach (FileInfo level in levels)
+        List<Level> levels = ((Facade.RetrieveProxy(GameDataProxy.NAME) as GameDataProxy).Data as GameData).levels;
+        int passedLevelNum = ((Facade.RetrieveProxy(GameDataProxy.NAME) as GameDataProxy).Data as GameData).passedLevelNum;
+        foreach (Level level in levels)
         {
-            Level levelInfo = new Level();
-            Tools.FillLevel(level.FullName, ref levelInfo);
             Card card = new Card();
-            card.levelID = levelInfo.levelID;
-            card.isLocked = levelInfo.isLocked;
-            card.cardPath = levelInfo.cardName;
+            card.levelID = level.levelID;
+            card.cardPath = level.cardName;
+            card.isLocked = level.levelID - 1 > passedLevelNum;
             cards.Add(card);
         }
 
@@ -112,6 +113,7 @@ public class SelectViewMediator : Mediator
         selectCard.gameObject.SetActive(true);
         selectCard.IsTransparent = false;
         selectCard.SetCard(cards[currentIndx]);
+        (ViewComponent as SelectView).btnPlay.gameObject.SetActive(!cards[cardIndex].isLocked);
 
         if (rightIndex >= cards.Count)
         {

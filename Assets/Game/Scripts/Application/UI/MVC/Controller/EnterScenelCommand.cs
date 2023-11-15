@@ -25,12 +25,6 @@ public class EnterSceneCommand : SimpleCommand
                 (Facade.RetrieveMediator(SelectViewMediator.NAME) as SelectViewMediator).InitCard();
                 break;
             case Consts.LevelScene:
-                // 创建关卡数据
-                if (!Facade.HasProxy(LevelDataProxy.NAME))
-                {
-                    LevelDataProxy levelDataProxy = new LevelDataProxy();
-                    Facade.RegisterProxy(levelDataProxy);
-                }
                 // 注册倒计时完成的命令
                 if (!Facade.HasCommand(MVCNotification.COUNTDOWN_OVER))
                 {

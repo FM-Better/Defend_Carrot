@@ -15,6 +15,8 @@ public static class Consts
     public static readonly string MapDir = Application.dataPath + @"/Game/ArtRes/Maps";
     // 卡牌文件夹路径
     public static readonly string CardDir = Application.dataPath + @"/Game/ArtRes/Cards";
+    // 持久化数据路径
+    public static readonly string PassedLevelNum = Application.persistentDataPath + "/PassedLevelNum.json";
     #endregion
 
     #region Gizmos资源名相关

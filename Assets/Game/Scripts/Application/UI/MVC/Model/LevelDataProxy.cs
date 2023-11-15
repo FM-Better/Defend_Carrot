@@ -1,6 +1,7 @@
-using PureMVC.Patterns.Proxy;
+ï»¿using PureMVC.Patterns.Proxy;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class LevelDataProxy : Proxy
@@ -9,34 +10,49 @@ public class LevelDataProxy : Proxy
 
     public LevelDataProxy() : base(NAME)
     {
-        // ´´½¨Ò»¸öPlayerÊı¾İ
+        // åˆ›å»ºå…³å¡æ•°æ®
         LevelData levelData = new LevelData();
         levelData.speed = 1f;
 
-        // ¹ØÁªÊı¾İ
+        // å…³è”æ•°æ®
         Data = levelData;
     }
 
-    // ÔİÍ£
+    // åˆå§‹åŒ–å…³å¡ä¿¡æ¯
+    public void InitializeLevelInfo(int levelIndex)
+    {
+        GameData gameData = ((Facade.RetrieveProxy(GameDataProxy.NAME) as GameDataProxy).Data as GameData);
+        (Data as LevelData).levelIndex = levelIndex;
+        (Data as LevelData).money = gameData.levels[levelIndex].initMoney;
+        (Data as LevelData).roundTotalNum = gameData.levels[levelIndex].rounds.Count;
+    }
+
+    // è¿›å…¥ä¸‹ä¸€ä¸ªå›åˆ
+    public void EnterNextRound()
+    {
+        (Data as LevelData).roundCurrentNum++;
+    }
+
+    // æš‚åœ
     public void Pause()
     {
         Time.timeScale = 0f;
     }
 
-    // ¼ÌĞø
+    // ç»§ç»­
     public void Resume()
     {
         Time.timeScale = (Data as LevelData).speed;
     }
 
-    // 2±¶ËÙ
+    // 2å€é€Ÿ
     public void SpeedUp()
     {
         (Data as LevelData).speed = 2f;
         Time.timeScale = (Data as LevelData).speed;
     }
 
-    // 1±¶ËÙ
+    // 1å€é€Ÿ
     public void SlowDown()
     {
         (Data as LevelData).speed = 1f;

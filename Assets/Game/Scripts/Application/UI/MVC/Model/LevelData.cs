@@ -1,18 +1,20 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ¹Ø¿¨ÄÚÍæ¼ÒÊı¾İ
+/// å…³å¡å†…æ•°æ®
 /// </summary>
 public class LevelData
 {
-    // ÓÎÏ·ËÙ¶È
+    // æ¸¸æˆé€Ÿåº¦
     public float speed;
-    // ½ğ±ÒÊı
+    // é‡‘å¸æ•°
     public int money;
-    // ×Ü»ØºÏÊı
+    // æ€»å›åˆæ•°
     public int roundTotalNum;
-    // µ±Ç°»ØºÏÊı
+    // å½“å‰å›åˆæ•°
     public int roundCurrentNum;
+    // å½“å‰è¿›å…¥çš„å…³å¡ç´¢å¼•
+    public int levelIndex;
 }

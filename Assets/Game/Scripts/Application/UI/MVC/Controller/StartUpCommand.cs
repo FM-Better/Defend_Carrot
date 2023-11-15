@@ -13,6 +13,12 @@ public class StartUpCommand : SimpleCommand
         {
             // 进入开始场景
             SendNotification(MVCNotification.ENTER_SCENE, Consts.StartScene);
+            // 创建游戏数据
+            if (!Facade.HasProxy(GameDataProxy.NAME))
+            {
+                GameDataProxy gameDataProxy = new GameDataProxy();
+                Facade.RegisterProxy(gameDataProxy);
+            }
         }));
     }
 }
