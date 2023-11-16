@@ -662,10 +662,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map
       objectReference: {fileID: 0}
-    - target: {fileID: 1715894923355618554, guid: ddd8813b653c5774a820479d04040de4, type: 3}
-      propertyPath: drawGizmos
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1715894923355618555, guid: ddd8813b653c5774a820479d04040de4, type: 3}
       propertyPath: m_RootOrder
       value: 1

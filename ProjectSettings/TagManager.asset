@@ -41,3 +41,24 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1644257907
+    locked: 0
+  - name: Road
+    uniqueID: 1561447571
+    locked: 0
+  - name: Carrot
+    uniqueID: 542487583
+    locked: 0
+  - name: Monster
+    uniqueID: 4250605611
+    locked: 0
+  - name: Tower
+    uniqueID: 4197549491
+    locked: 0
+  - name: Bullet
+    uniqueID: 576314137
+    locked: 0
+  - name: Effect
+    uniqueID: 1471975167
+    locked: 0
