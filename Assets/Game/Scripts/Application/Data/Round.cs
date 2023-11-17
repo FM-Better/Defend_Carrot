@@ -12,6 +12,11 @@ public class Round
     // 怪物数量
     public int monsterNum;
 
+    public Round()
+    {
+
+    }
+
     public Round(int type, int num)
     {
         monsterType = type;

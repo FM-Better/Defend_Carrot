@@ -10,11 +10,15 @@ public class BoardViewMediator : Mediator
 
     public BoardViewMediator() : base(NAME) { }
 
+    private Spawner m_spawner;
+
     /// <summary>
     ///  将View关联上
     /// </summary>
     public void SetView(BoardView view)
     {
+        m_spawner = GameObject.Find(Consts.Map).GetComponent<Spawner>();
+        m_spawner.InitializeSpawner();
         ViewComponent = view;
 
         // 监听按钮逻辑
@@ -24,7 +28,7 @@ public class BoardViewMediator : Mediator
             view.btnResume.gameObject.SetActive(true);
             view.imgRoundInfo.gameObject.SetActive(false);
             view.imgPauseInfo.gameObject.SetActive(true);
-            (Facade.RetrieveProxy(LevelDataProxy.NAME) as LevelDataProxy).Pause();
+            SendNotification(MVCNotification.CHANGE_TIME, E_ChengTimeType.Pause);
         });
 
         view.btnResume.onClick.AddListener(() =>
@@ -33,21 +37,21 @@ public class BoardViewMediator : Mediator
             view.btnResume.gameObject.SetActive(false);
             view.imgRoundInfo.gameObject.SetActive(true);
             view.imgPauseInfo.gameObject.SetActive(false);
-            (Facade.RetrieveProxy(LevelDataProxy.NAME) as LevelDataProxy).Resume();
+            SendNotification(MVCNotification.CHANGE_TIME, E_ChengTimeType.Resume);
         });
 
         view.btnSpeed1.onClick.AddListener(() =>
         {
             view.btnSpeed1.gameObject.SetActive(false);
             view.btnSpeed2.gameObject.SetActive(true);
-            (Facade.RetrieveProxy(LevelDataProxy.NAME) as LevelDataProxy).SpeedUp();
+            SendNotification(MVCNotification.CHANGE_TIME, E_ChengTimeType.SpeedUp);
         });
 
         view.btnSpeed2.onClick.AddListener(() =>
         {
             view.btnSpeed1.gameObject.SetActive(true);
             view.btnSpeed2.gameObject.SetActive(false);
-            (Facade.RetrieveProxy(LevelDataProxy.NAME) as LevelDataProxy).SlowDown();
+            SendNotification(MVCNotification.CHANGE_TIME, E_ChengTimeType.SlowDown);
         });
 
         view.btnMenu.onClick.AddListener(() =>
@@ -88,7 +92,7 @@ public class BoardViewMediator : Mediator
     public override string[] ListNotificationInterests()
     {
         return new string[] {
-
+            MVCNotification.COUNTDOWN_OVER,
         };
     }
 
@@ -97,8 +101,11 @@ public class BoardViewMediator : Mediator
     {
         switch (notification.Name)
         {
+            case MVCNotification.COUNTDOWN_OVER:
+                // 开始出怪
+                m_spawner.StartSpawn();
+                break;
             default:
-
                 break;
         }
     }

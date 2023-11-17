@@ -26,7 +26,7 @@ public class Map : MonoBehaviour
     #endregion
 
     #region 共有属性
-    public Level level => m_level;
+    public Level Level => m_level;
 
     public string BackgroundImage
     {

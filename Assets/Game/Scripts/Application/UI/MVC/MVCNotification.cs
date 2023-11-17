@@ -22,4 +22,8 @@ public class MVCNotification
     public const string COUNTDOWN_OVER = "COUNTDOWN_OVER";
     // 退出场景
     public const string EXIT_SCENE = "EXIT_SCENE";
+    // 改变时间流速
+    public const string CHANGE_TIME = "CHANGE_TIME";
+    // 回合开始
+    public const string RUN_ROUND = "RUN_ROUND";
 }

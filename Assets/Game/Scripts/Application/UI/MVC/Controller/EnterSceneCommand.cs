@@ -33,6 +33,22 @@ public class EnterSceneCommand : SimpleCommand
                         return new CountDownOverCommand();
                     });
                 }
+                // 注册回合开始的命令
+                if (!Facade.HasCommand(MVCNotification.RUN_ROUND))
+                {
+                    Facade.RegisterCommand(MVCNotification.RUN_ROUND, () =>
+                    {
+                        return new RunRoundCommand();
+                    });
+                }
+                // 注册改变时间流速的命令
+                if (!Facade.HasCommand(MVCNotification.CHANGE_TIME))
+                {
+                    Facade.RegisterCommand(MVCNotification.CHANGE_TIME, () =>
+                    {
+                        return new ChangeTimeCommand();
+                    });
+                }
 
                 // 设置倒计时视图
                 SendNotification(MVCNotification.SET_VIEW, Consts.V_CountDown);

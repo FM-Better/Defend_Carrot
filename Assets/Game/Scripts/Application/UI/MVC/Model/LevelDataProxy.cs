@@ -25,10 +25,12 @@ public class LevelDataProxy : Proxy
         (Data as LevelData).levelIndex = levelIndex;
         (Data as LevelData).money = gameData.levels[levelIndex].initMoney;
         (Data as LevelData).roundTotalNum = gameData.levels[levelIndex].rounds.Count;
+        // 初始化Map的Level
+        GameObject.Find(Consts.Map).GetComponent<Map>().LoadLevel(gameData.levels[levelIndex]);
     }
 
-    // 进入下一个回合
-    public void EnterNextRound()
+    // 回合开始
+    public void RunRound()
     {
         (Data as LevelData).roundCurrentNum++;
     }

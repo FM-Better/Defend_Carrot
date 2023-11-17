@@ -65,7 +65,8 @@ public static class Consts
     public const string V_Complete = "CompleteView";
     #endregion
 
-    #region 其余UI名
+    #region 其余名
     public const string UI_Level = "LevelCanvas";
+    public const string Map = "Map";
     #endregion
 }
