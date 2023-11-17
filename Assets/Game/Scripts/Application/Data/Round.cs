@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 /// <summary>
 /// 回合数据类
 /// </summary>
+[Serializable]
 public class Round
 {
     // 怪物种类

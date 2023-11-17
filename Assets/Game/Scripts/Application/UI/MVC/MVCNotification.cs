@@ -18,6 +18,8 @@ public class MVCNotification
 
     // 进入场景
     public const string ENTER_SCENE = "ENTER_SCENE";
+    // 初始化关卡
+    public const string INIT_LEVEL = "INIT_LEVEL";
     // 倒计时结束
     public const string COUNTDOWN_OVER = "COUNTDOWN_OVER";
     // 退出场景
@@ -26,4 +28,6 @@ public class MVCNotification
     public const string CHANGE_TIME = "CHANGE_TIME";
     // 回合开始
     public const string RUN_ROUND = "RUN_ROUND";
+    // 更新公告板
+    public const string UPDATE_BOARD = "UPDATE_BOARD";
 }

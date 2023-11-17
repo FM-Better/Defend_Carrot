@@ -25,27 +25,23 @@ public class LevelDataProxy : Proxy
         (Data as LevelData).levelIndex = levelIndex;
         (Data as LevelData).money = gameData.levels[levelIndex].initMoney;
         (Data as LevelData).roundTotalNum = gameData.levels[levelIndex].rounds.Count;
+        GameObject gameObject = GameObject.Find(Consts.Map);
         // 初始化Map的Level
         GameObject.Find(Consts.Map).GetComponent<Map>().LoadLevel(gameData.levels[levelIndex]);
+        // 设置公告板视图
+        SendNotification(MVCNotification.SET_VIEW, Consts.V_Board);
+        // 更新公告板面板
+        SendNotification(MVCNotification.UPDATE_BOARD, Data);
     }
 
     // 回合开始
-    public void RunRound()
-    {
-        (Data as LevelData).roundCurrentNum++;
-    }
+    public void RunRound(int roundNum) => (Data as LevelData).roundCurrentNum = roundNum;
 
     // 暂停
-    public void Pause()
-    {
-        Time.timeScale = 0f;
-    }
+    public void Pause() => Time.timeScale = 0f;
 
     // 继续
-    public void Resume()
-    {
-        Time.timeScale = (Data as LevelData).speed;
-    }
+    public void Resume() => Time.timeScale = (Data as LevelData).speed;
 
     // 2倍速
     public void SpeedUp()

@@ -28,7 +28,7 @@ public class Spawner : MonoBehaviour
     {
         for (int i = 0; i < m_rounds.Count; i++)
         {
-            GameFacade.Instance.SendNotification(MVCNotification.RUN_ROUND);
+            GameFacade.Instance.SendNotification(MVCNotification.RUN_ROUND, i + 1);
             for (int j = 0; j  < m_rounds[i].monsterNum; j++)
             {
                 print("出怪: " + m_rounds[i].monsterType);

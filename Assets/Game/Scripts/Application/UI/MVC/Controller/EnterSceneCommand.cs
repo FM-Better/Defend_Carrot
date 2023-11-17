@@ -25,37 +25,14 @@ public class EnterSceneCommand : SimpleCommand
                 (Facade.RetrieveMediator(SelectViewMediator.NAME) as SelectViewMediator).InitCard();
                 break;
             case Consts.LevelScene:
-                // 注册倒计时完成的命令
-                if (!Facade.HasCommand(MVCNotification.COUNTDOWN_OVER))
+                // 注册初始化关卡的命令
+                if (!Facade.HasCommand(MVCNotification.INIT_LEVEL))
                 {
-                    Facade.RegisterCommand(MVCNotification.COUNTDOWN_OVER, () =>
+                    Facade.RegisterCommand(MVCNotification.INIT_LEVEL, () =>
                     {
-                        return new CountDownOverCommand();
+                        return new InitLevelCommand();
                     });
                 }
-                // 注册回合开始的命令
-                if (!Facade.HasCommand(MVCNotification.RUN_ROUND))
-                {
-                    Facade.RegisterCommand(MVCNotification.RUN_ROUND, () =>
-                    {
-                        return new RunRoundCommand();
-                    });
-                }
-                // 注册改变时间流速的命令
-                if (!Facade.HasCommand(MVCNotification.CHANGE_TIME))
-                {
-                    Facade.RegisterCommand(MVCNotification.CHANGE_TIME, () =>
-                    {
-                        return new ChangeTimeCommand();
-                    });
-                }
-
-                // 设置倒计时视图
-                SendNotification(MVCNotification.SET_VIEW, Consts.V_CountDown);
-                // 设置公告板视图
-                SendNotification(MVCNotification.SET_VIEW, Consts.V_Board);
-                // 设置菜单视图
-                SendNotification(MVCNotification.SET_VIEW, Consts.V_Menu);
                 break;
             case Consts.CompleteScene:
                 // 设置通过视图

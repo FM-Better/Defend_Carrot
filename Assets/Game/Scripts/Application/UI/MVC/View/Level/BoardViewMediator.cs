@@ -2,6 +2,7 @@
 using PureMVC.Patterns.Mediator;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class BoardViewMediator : Mediator
@@ -76,7 +77,11 @@ public class BoardViewMediator : Mediator
     /// <param name="currentRoundNum"> 当前回合数 </param>
     public void UpdataRoundInfo(int currentRoundNum)
     {
-        (ViewComponent as BoardView).txtCurrent.text = currentRoundNum.ToString("D2"); // 始终保持2位数
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.Append((currentRoundNum / 10).ToString());
+        stringBuilder.Append(" ");
+        stringBuilder.Append((currentRoundNum % 10).ToString());
+        (ViewComponent as BoardView).txtCurrent.text = stringBuilder.ToString();
     }
 
     /// <summary>
@@ -93,6 +98,8 @@ public class BoardViewMediator : Mediator
     {
         return new string[] {
             MVCNotification.COUNTDOWN_OVER,
+            MVCNotification.RUN_ROUND,
+            MVCNotification.UPDATE_BOARD,
         };
     }
 
@@ -104,6 +111,14 @@ public class BoardViewMediator : Mediator
             case MVCNotification.COUNTDOWN_OVER:
                 // 开始出怪
                 m_spawner.StartSpawn();
+                break;
+            case MVCNotification.RUN_ROUND:
+                UpdataRoundInfo((int)notification.Body);
+                break;
+            case MVCNotification.UPDATE_BOARD:
+                LevelData levelData = (LevelData)notification.Body;
+                UpdateMoney(levelData.money);
+                SetTotalRoundInfo(levelData.roundTotalNum);
                 break;
             default:
                 break;

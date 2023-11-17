@@ -8,10 +8,8 @@ using System;
 [CustomEditor(typeof(Map))]
 public class MapEditor : Editor
 {
-    [HideInInspector]
     public Map map = null;
 
-    private List<Round> m_rounds = new List<Round>();
     private List<FileInfo> m_files = new List<FileInfo>();
     // 当前选中的配置文件的索引
     private int m_currentIndex = -1;
@@ -51,31 +49,13 @@ public class MapEditor : Editor
             {
                 map.ClearRoad();
             }
-            EditorGUILayout.EndHorizontal();
 
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("怪物类型");
-            string monsterType = EditorGUILayout.TextField("");
-            EditorGUILayout.EndHorizontal();
-
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("怪物数量");
-            string monsterNum = EditorGUILayout.TextField("");
-            EditorGUILayout.EndHorizontal();
-
-            EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("添加回合信息"))
-            {
-                m_rounds.Add(new Round(1, 3));
-                // m_rounds.Add(new Round(int.Parse(monsterType), int.Parse(monsterNum)));
-            }
             if (GUILayout.Button("清除回合信息"))
             {
-                m_rounds.Clear();
+                map.Level.rounds.Clear();
             }
             EditorGUILayout.EndHorizontal();
 
-            EditorGUILayout.Space(10);
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button("保存数据"))
             {
@@ -130,12 +110,6 @@ public class MapEditor : Editor
     {
         // 得到当前编辑的Level
         Level level = map.Level;
-        level.levelID = m_currentIndex + 1;
-
-        level.name = "Level" + level.levelID;
-        level.cardName = "Card" + level.levelID + ".png";
-        level.background = "bg" + level.levelID + ".png";
-        level.road = "road" + level.levelID + ".png";
 
         List<Point> holders = new List<Point>();
         // 保存放置点信息
@@ -156,7 +130,7 @@ public class MapEditor : Editor
         }
         level.path = path;
 
-        level.rounds = m_rounds;
+        level.rounds = map.Level.rounds;
 
         // 保存关卡
         Tools.SaveLevel(m_files[m_currentIndex].FullName, level);

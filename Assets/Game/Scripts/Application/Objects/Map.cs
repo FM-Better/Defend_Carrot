@@ -18,10 +18,9 @@ public class Map : MonoBehaviour
     private float tileHeight;
 
     private List<Tile> m_grid = new List<Tile>();
-    private List<Tile> m_road = new List<Tile>();
+    public List<Tile> m_road = new List<Tile>();
 
-    private Level m_level;
-
+    [SerializeField] private Level m_level;
     public bool drawGizmos = true;
     #endregion
 

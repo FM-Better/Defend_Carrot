@@ -8,6 +8,6 @@ public class RunRoundCommand : SimpleCommand
 {
     public override void Execute(INotification notification)
     {
-        (Facade.RetrieveProxy(LevelDataProxy.NAME) as LevelDataProxy).RunRound();
+        (Facade.RetrieveProxy(LevelDataProxy.NAME) as LevelDataProxy).RunRound((int)notification.Body);
     }
 }
