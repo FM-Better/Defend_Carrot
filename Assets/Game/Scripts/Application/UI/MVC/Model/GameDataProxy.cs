@@ -17,6 +17,8 @@ public class GameDataProxy : Proxy
 
         // 加载所有关卡信息
         LoadAllLevelInfo();
+        // 加载所有怪物信息
+        LoadAllMonsterInfo();
 
         // 通关数
         PassedLevelNum passedLevelNum = new PassedLevelNum();
@@ -58,5 +60,14 @@ public class GameDataProxy : Proxy
             passedLevelNum.passedLevelNum = levelIndex;
             JsonMgr.Instance.SaveData(passedLevelNum, Consts.PassedLevelNum);
         }
+    }
+
+    // 加载所有怪物信息
+    public void LoadAllMonsterInfo()
+    {
+        // 加载所有怪物信息
+        BinaryDataMgr.Instance.LoadTable<MonsterInfoContainer, MonsterInfo>();
+        // 存储到GameData中
+        (Data as GameData).monsterInfoContainer = BinaryDataMgr.Instance.GetTable<MonsterInfoContainer>();
     }
 }

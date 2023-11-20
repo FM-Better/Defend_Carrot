@@ -1,0 +1,12 @@
+1.Excel文件需放置在ExcelTool当中的EXCEL_PATH路径当中
+如果想要修改 则需修改EXCEL_PATH变量
+2.配置表规则
+	第一行：描述信息
+	第二行：变量名
+	第三行：变量类型（变量类型一定不要配置错误，变量类型目前只支持int float bool string）
+如果想要再添加类型，需要在ExcelTool的GenerateExcelBinary方法中和BinaryDataMgr的LoadTable方法当中添加对应读写的逻辑
+	第四行：用来指定哪个变量是key 需要通过"key"来标识容器类的key
+	第五行~第n行：就是具体数据信息
+	下方的表名决定了数据结构类，容器类，2进制文件的文件名
+3.生成的容器类和数据结构类可以在ExcelTool当中修改DATA_CLASS_PATH和DATA_CONTAINER_PATH变量来进行更改
+4.生成2进制文件的路径可以在BinaryDataMgr当中的BINARY_DATA_PATH变量来进行修改

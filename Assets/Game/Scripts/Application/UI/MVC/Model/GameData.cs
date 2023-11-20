@@ -11,4 +11,6 @@ public class GameData
     public int passedLevelNum;
     // 所有关卡信息
     public List<Level> levels;
+    // 所有怪物消息
+    public MonsterInfoContainer monsterInfoContainer;
 }

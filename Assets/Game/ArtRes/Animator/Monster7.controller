@@ -54,7 +54,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: land_star01_png
+  m_Name: Monster7
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
